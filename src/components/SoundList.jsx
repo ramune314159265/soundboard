@@ -1,6 +1,6 @@
-import { Button, HStack, Icon, SimpleGrid, Text } from '@chakra-ui/react'
-import { HiMiniPlusCircle } from "react-icons/hi2"
+import { SimpleGrid } from '@chakra-ui/react'
 import { Sound } from './Sound'
+import { SoundAddButton } from './SoundAddButton'
 
 export const SoundList = () => {
 	return (
@@ -11,14 +11,7 @@ export const SoundList = () => {
 			<Sound emoji={"😋"} name={"あああ"}></Sound>
 			<Sound emoji={"😋"} name={"あああ"}></Sound>
 			<Sound emoji={"😋"} name={"あああ"}></Sound>
-			<Button>
-				<HStack>
-					<Icon>
-						<HiMiniPlusCircle />
-					</Icon>
-					<Text>サウンドを追加</Text>
-				</HStack>
-			</Button>
+			<SoundAddButton></SoundAddButton>
 		</SimpleGrid>
 	)
 }
