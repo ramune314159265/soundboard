@@ -7,7 +7,7 @@ import {
 import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiMiniPlusCircle } from "react-icons/hi2"
-import { addSound } from '../sounddb'
+import { useSound } from '../atoms/sounds'
 import { getNameWithoutExtension } from '../utils/filePath'
 import { showOpenFilePicker } from '../utils/showOpenFilePicker'
 import { SoundEditForm } from './SoundEditForm'
@@ -15,6 +15,7 @@ import { SoundEditForm } from './SoundEditForm'
 export const SoundAddButton = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const [file, setFile] = useState(null)
+	const [sounds, { setSounds, addSound }] = useSound()
 	const buttonHandle = () => {
 		showOpenFilePicker({
 			excludeAcceptAllOption: true,
@@ -44,7 +45,7 @@ export const SoundAddButton = () => {
 
 	return (
 		<>
-			<Button height="100%" onClick={buttonHandle}>
+			<Button height="3rem" onClick={buttonHandle}>
 				<HiMiniPlusCircle />サウンドを追加
 			</Button>
 			<DialogRoot
