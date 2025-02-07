@@ -49,7 +49,7 @@ export const SoundAddButton = () => {
 				<HiMiniPlusCircle />サウンドを追加
 			</Button>
 			<DialogRoot
-				size="md"
+				size="sm"
 				closeOnInteractOutside={false}
 				open={dialogOpen}
 			>

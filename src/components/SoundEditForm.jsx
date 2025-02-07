@@ -1,5 +1,13 @@
+import {
+	PopoverContent,
+	PopoverRoot,
+	PopoverTrigger
+} from "@/components/ui/popover"
 import { Slider } from "@/components/ui/slider"
-import { Button, FieldLabel, FieldRoot, HStack, Input, VStack } from '@chakra-ui/react'
+import { Button, FieldLabel, FieldRoot, Group, HStack, Input, VStack } from '@chakra-ui/react'
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
@@ -11,44 +19,49 @@ export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
 			...defaultValues,
 		}
 	})
+	const [emoji, setEmoji] = useState("🎉")
 	return (
-		<form onSubmit={useFormMethods.handleSubmit((data) => onDataSubmit(data))}>
+		<form onSubmit={useFormMethods.handleSubmit((data) => onDataSubmit({ ...data, emoji }))}>
 			<VStack gap="4">
 				<FieldRoot>
-					<FieldLabel>名前</FieldLabel>
-					<Controller
-						name="name"
-						control={useFormMethods.control}
-						render={({ field }) => (
-							<Input
-								disabled={field.disabled}
-								name={field.name}
-								value={field.value}
-								required={true}
-								onChange={e => {
-									field.onChange(e.target.value)
-								}}
-							/>
-						)}
-					/>
-				</FieldRoot>
-				<FieldRoot>
-					<FieldLabel>絵文字</FieldLabel>
-					<Controller
-						name="emoji"
-						control={useFormMethods.control}
-						render={({ field }) => (
-							<Input
-								disabled={field.disabled}
-								name={field.name}
-								value={field.value}
-								required={true}
-								onChange={e => {
-									field.onChange(e.target.value)
-								}}
-							/>
-						)}
-					/>
+					<FieldLabel>絵文字＆名前</FieldLabel>
+					<Group width="full">
+						<PopoverRoot placement="right">
+							<PopoverTrigger asChild>
+								<Button
+									variant="outline"
+								>{emoji}</Button>
+							</PopoverTrigger>
+							<PopoverContent>
+								<Picker
+									emojiStyle="native"
+									data={data}
+									locale="ja"
+									searchPosition="none"
+									value={emoji}
+									onEmojiSelect={e => {
+										setEmoji(e.native)
+									}}
+								/>
+							</PopoverContent>
+						</PopoverRoot>
+						<Controller
+							name="name"
+							control={useFormMethods.control}
+							render={({ field }) => (
+								<Input
+									width="full"
+									disabled={field.disabled}
+									name={field.name}
+									value={field.value}
+									required={true}
+									onChange={e => {
+										field.onChange(e.target.value)
+									}}
+								/>
+							)}
+						/>
+					</Group>
 				</FieldRoot>
 				<FieldRoot>
 					<FieldLabel>音量</FieldLabel>
