@@ -10,7 +10,7 @@ export const SoundList = () => {
 			{
 				Object.values(sounds).map((sound, i) => {
 					return (
-						<Sound emoji={sound.emoji} name={sound.name} key={i} />
+						<Sound data={sound} key={i} />
 					)
 				})
 			}

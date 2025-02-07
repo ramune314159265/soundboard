@@ -18,13 +18,14 @@ export const useSound = () => {
 			.then(sounds => {
 				const data = {}
 				sounds.forEach(sound => {
-					data[sound.uuid] = sound
+					const url = URL.createObjectURL(sound.blob)
+					data[sound.uuid] = { ...sound, url }
 				})
 				setSounds(data)
 			})
 	}, [setSounds])
 
-	const addSound = async ({ blob, name, emoji, volume, uuid }) => {
+	const addSound = async ({ blob, name, emoji, volume, uuid, url }) => {
 		try {
 			await db.sounds.add({ blob, name, emoji, volume, uuid })
 		} catch (e) {
@@ -32,7 +33,7 @@ export const useSound = () => {
 		}
 		const data = {
 			...sounds,
-			[uuid]: { blob, name, emoji, volume, uuid }
+			[uuid]: { blob, name, emoji, volume, uuid, url }
 		}
 		setSounds(data)
 	}
