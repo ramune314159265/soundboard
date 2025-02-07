@@ -9,8 +9,9 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { Sound } from './Sound'
 
-export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
+export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 	const useFormMethods = useForm({
 		defaultValues: {
 			name: '',
@@ -19,7 +20,9 @@ export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
 			...defaultValues,
 		}
 	})
+	const [name, setName] = useState(defaultValues.name ?? '')
 	const [emoji, setEmoji] = useState("🎉")
+	const [volume, setVolume] = useState(defaultValues.volume ?? [1])
 	return (
 		<form onSubmit={useFormMethods.handleSubmit((data) => onDataSubmit({ ...data, emoji }))}>
 			<VStack gap="4">
@@ -56,6 +59,7 @@ export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
 									value={field.value}
 									required={true}
 									onChange={e => {
+										setName(e.target.value)
 										field.onChange(e.target.value)
 									}}
 								/>
@@ -75,11 +79,16 @@ export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues }) => {
 								disabled={field.disabled}
 								name={field.name}
 								onValueChange={({ value }) => {
+									setVolume(value)
 									field.onChange(value)
 								}}
 							/>
 						)}
 					/>
+				</FieldRoot>
+				<FieldRoot>
+					<FieldLabel>試聴</FieldLabel>
+					<Sound data={{ name, emoji, url, volume: volume[0] }}></Sound>
 				</FieldRoot>
 				<HStack width="full" justifyContent="space-between">
 					<Button variant="outline" onClick={() => onCancel()}>キャンセル</Button>

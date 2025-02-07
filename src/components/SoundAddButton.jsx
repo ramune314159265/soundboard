@@ -15,6 +15,7 @@ import { SoundEditForm } from './SoundEditForm'
 export const SoundAddButton = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const [file, setFile] = useState(null)
+	const [url, setUrl] = useState('')
 	const [sounds, { setSounds, addSound }] = useSound()
 	const buttonHandle = () => {
 		showOpenFilePicker({
@@ -32,6 +33,7 @@ export const SoundAddButton = () => {
 			.then(async e => {
 				const file = await e[0].getFile()
 				setFile(file)
+				setUrl(URL.createObjectURL(new Blob([file], { type: file.type })))
 				setDialogOpen(true)
 			})
 			.catch(() => { })
@@ -40,7 +42,7 @@ export const SoundAddButton = () => {
 		setDialogOpen(false)
 		const blob = new Blob([file], { type: file.type })
 		const uuid = crypto.randomUUID()
-		await addSound({ blob, name: data.name, emoji: data.emoji, volume: data.volume[0], uuid })
+		await addSound({ blob, name: data.name, emoji: data.emoji, volume: data.volume[0], uuid, url })
 	}
 
 	return (
@@ -63,6 +65,7 @@ export const SoundAddButton = () => {
 							onDataSubmit={submitHandle}
 							onCancel={() => setDialogOpen(false)}
 							defaultValues={{ name: getNameWithoutExtension(file?.name ?? '') }}
+							url={url}
 						/>
 					</DialogBody>
 				</DialogContent>
