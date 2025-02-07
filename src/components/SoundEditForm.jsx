@@ -4,7 +4,7 @@ import {
 	PopoverTrigger
 } from "@/components/ui/popover"
 import { Slider } from "@/components/ui/slider"
-import { Button, FieldLabel, FieldRoot, Group, HStack, Input, VStack } from '@chakra-ui/react'
+import { Button, FieldLabel, FieldRoot, Group, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { useState } from 'react'
@@ -73,16 +73,19 @@ export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues, url }) =>
 						name="volume"
 						control={useFormMethods.control}
 						render={({ field }) => (
-							<Slider
-								width="full" max={1} min={0} step={0.01}
-								value={field.value}
-								disabled={field.disabled}
-								name={field.name}
-								onValueChange={({ value }) => {
-									setVolume(value)
-									field.onChange(value)
-								}}
-							/>
+							<HStack width="full" gap={4}>
+								<Slider
+									width="full" max={1} min={0} step={0.01}
+									value={field.value}
+									disabled={field.disabled}
+									name={field.name}
+									onValueChange={({ value }) => {
+										setVolume(value)
+										field.onChange(value)
+									}}
+								/>
+								<Text width="12">{Math.floor(volume[0] * 100)}%</Text>
+							</HStack>
 						)}
 					/>
 				</FieldRoot>
