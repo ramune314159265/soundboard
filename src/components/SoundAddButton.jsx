@@ -7,6 +7,7 @@ import {
 import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiMiniPlusCircle } from "react-icons/hi2"
+import { addSound } from '../sounddb'
 import { getNameWithoutExtension } from '../utils/filePath'
 import { showOpenFilePicker } from '../utils/showOpenFilePicker'
 import { SoundEditForm } from './SoundEditForm'
@@ -34,8 +35,10 @@ export const SoundAddButton = () => {
 			})
 			.catch(() => { })
 	}
-	const submitHandle = data => {
-		console.log(data)
+	const submitHandle = async data => {
+		setDialogOpen(false)
+		const blob = new Blob([file], { type: file.type })
+		await addSound({ ...data, blob })
 	}
 
 	return (
