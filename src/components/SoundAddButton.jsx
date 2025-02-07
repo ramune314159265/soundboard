@@ -38,7 +38,8 @@ export const SoundAddButton = () => {
 	const submitHandle = async data => {
 		setDialogOpen(false)
 		const blob = new Blob([file], { type: file.type })
-		await addSound({ blob, name: data.name, emoji: data.emoji, volume: data.volume[0] })
+		const uuid = crypto.randomUUID()
+		await addSound({ blob, name: data.name, emoji: data.emoji, volume: data.volume[0], uuid })
 	}
 
 	return (
