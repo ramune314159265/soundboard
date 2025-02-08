@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Sound } from './Sound'
 
-export const SoundEditForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
+export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 	const useFormMethods = useForm({
 		defaultValues: {
 			name: '',

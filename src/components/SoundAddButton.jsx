@@ -10,7 +10,7 @@ import { HiMiniPlusCircle } from "react-icons/hi2"
 import { useSound } from '../atoms/sounds'
 import { getNameWithoutExtension } from '../utils/filePath'
 import { showOpenFilePicker } from '../utils/showOpenFilePicker'
-import { SoundEditForm } from './SoundEditForm'
+import { SoundForm } from './SoundForm'
 
 export const SoundAddButton = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)
@@ -61,7 +61,7 @@ export const SoundAddButton = () => {
 						<DialogTitle>サウンドを追加</DialogTitle>
 					</DialogHeader>
 					<DialogBody>
-						<SoundEditForm
+						<SoundForm
 							onDataSubmit={submitHandle}
 							onCancel={() => setDialogOpen(false)}
 							defaultValues={{ name: getNameWithoutExtension(file?.name ?? '') }}
