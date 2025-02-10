@@ -1,12 +1,15 @@
 import {
 	MenuContent,
 	MenuItem,
-	MenuRoot
+	MenuRoot,
+	MenuTrigger
 } from "@/components/ui/menu"
-import { Button, ButtonGroup, Center, HStack, IconButton, MenuTrigger, Text } from '@chakra-ui/react'
+import { Button, ButtonGroup, Center, HStack, IconButton, Text } from '@chakra-ui/react'
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2'
+import { useSound } from '../atoms/sounds'
 
 export const Sound = ({ data }) => {
+	const [sounds, { setSounds, addSound, deleteSound }] = useSound()
 	const clickHandle = () => {
 		const audio = new Audio(data.url)
 		audio.volume = data.volume
@@ -36,7 +39,14 @@ export const Sound = ({ data }) => {
 				</IconButton>
 			</ButtonGroup>
 			<MenuContent>
-				<MenuItem value="new-txt">ああああ</MenuItem>
+				<MenuItem
+					value="delete"
+					color="fg.error"
+					_hover={{ bg: "bg.error", color: "fg.error" }}
+					onClick={() => deleteSound(data.uuid)}
+				>
+					削除
+				</MenuItem>
 			</MenuContent>
 		</MenuRoot>
 	)

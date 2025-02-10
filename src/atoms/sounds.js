@@ -6,8 +6,8 @@ export const soundsAtom = atom({})
 
 const db = new Dexie('soundDatabase')
 
-db.version(1).stores({
-	sounds: '++id'
+db.version(2).stores({
+	sounds: '++id,name,uuid'
 })
 
 export const useSound = () => {
@@ -37,5 +37,16 @@ export const useSound = () => {
 		}
 		setSounds(data)
 	}
-	return [sounds, { setSounds, addSound }]
+	const deleteSound = async (uuid) => {
+		try {
+			const data = await db.sounds.get({ uuid })
+			await db.sounds.delete(data.id)
+		} catch (e) {
+			console.error(e)
+		}
+		const copy = structuredClone(sounds)
+		delete copy[uuid]
+		setSounds(copy)
+	}
+	return [sounds, { setSounds, addSound, deleteSound }]
 }
