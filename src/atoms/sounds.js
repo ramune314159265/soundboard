@@ -48,5 +48,19 @@ export const useSound = () => {
 		delete copy[uuid]
 		setSounds(copy)
 	}
-	return [sounds, { setSounds, addSound, deleteSound }]
+	const editSound = async (uuid, newData) => {
+		try {
+			const data = await db.sounds.get({ uuid })
+			await db.sounds.update(data.id, newData)
+		} catch (e) {
+			console.error(e)
+		}
+		const copy = structuredClone(sounds)
+		copy[uuid] = {
+			...sounds[uuid],
+			...newData
+		}
+		setSounds(copy)
+	}
+	return [sounds, { setSounds, addSound, deleteSound, editSound }]
 }

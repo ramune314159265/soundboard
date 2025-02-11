@@ -15,14 +15,14 @@ export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 	const useFormMethods = useForm({
 		defaultValues: {
 			name: '',
-			emoji: '',
+			emoji: '🎉',
 			volume: [1],
 			...defaultValues,
 		}
 	})
-	const [name, setName] = useState(defaultValues.name ?? '')
-	const [emoji, setEmoji] = useState("🎉")
-	const [volume, setVolume] = useState(defaultValues.volume ?? [1])
+	const [name, setName] = useState(defaultValues?.name ?? '')
+	const [emoji, setEmoji] = useState(defaultValues?.emoji ?? "🎉")
+	const [volume, setVolume] = useState(defaultValues?.volume ?? [1])
 	return (
 		<form onSubmit={useFormMethods.handleSubmit((data) => onDataSubmit({ ...data, emoji }))}>
 			<VStack gap="4">
@@ -95,7 +95,7 @@ export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 				</FieldRoot>
 				<HStack width="full" justifyContent="space-between">
 					<Button variant="outline" onClick={() => onCancel()}>キャンセル</Button>
-					<Button type="submit">追加</Button>
+					<Button type="submit">OK</Button>
 				</HStack>
 			</VStack>
 		</form>
