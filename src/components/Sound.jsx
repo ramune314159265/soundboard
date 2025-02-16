@@ -28,11 +28,9 @@ export const Sound = ({ data }) => {
 				<Box
 					width="8rem"
 					height="5rem"
-					bg="bg.muted"
-					borderRadius="lg"
 					position="relative"
 				>
-					<Box position="absolute" top="2" right="2">
+					<Box position="absolute" top="2" right="2" zIndex="1">
 						<MenuTrigger>
 							<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
 						</MenuTrigger>
@@ -42,7 +40,7 @@ export const Sound = ({ data }) => {
 						width="full"
 						height="full"
 						cursor="pointer"
-						unstyled
+						variant="surface"
 						onClick={clickHandle}
 					>
 						<VStack alignItems="flex-start" width="full" height="full" justifyContent="space-between" gap="0">
