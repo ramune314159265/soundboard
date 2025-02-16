@@ -30,11 +30,6 @@ export const Sound = ({ data }) => {
 					height="5rem"
 					position="relative"
 				>
-					<Box position="absolute" top="2" right="2" zIndex="1">
-						<MenuTrigger>
-							<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
-						</MenuTrigger>
-					</Box>
 					<Button
 						p="2"
 						width="full"
@@ -59,6 +54,11 @@ export const Sound = ({ data }) => {
 							</Text>
 						</VStack>
 					</Button>
+					<Box position="absolute" top="2" right="2" zIndex="1">
+						<MenuTrigger>
+							<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
+						</MenuTrigger>
+					</Box>
 				</Box >
 				<MenuContent>
 					<MenuItem
