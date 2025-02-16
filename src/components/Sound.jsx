@@ -4,7 +4,7 @@ import {
 	MenuRoot,
 	MenuTrigger
 } from "@/components/ui/menu"
-import { Button, ButtonGroup, Center, HStack, IconButton, Text } from '@chakra-ui/react'
+import { Box, Button, Text, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2'
 import { useSound } from '../atoms/sounds'
@@ -25,27 +25,43 @@ export const Sound = ({ data }) => {
 	return (
 		<>
 			<MenuRoot>
-				<ButtonGroup attached variant="surface" width="12rem" height="3rem">
+				<Box
+					width="8rem"
+					height="5rem"
+					bg="bg.muted"
+					borderRadius="lg"
+					position="relative"
+				>
+					<Box position="absolute" top="2" right="2">
+						<MenuTrigger>
+							<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
+						</MenuTrigger>
+					</Box>
 					<Button
-						size="xl"
-						width="9rem"
+						p="2"
+						width="full"
 						height="full"
-						flexGrow={1}
+						cursor="pointer"
+						unstyled
 						onClick={clickHandle}
 					>
-						<HStack maxWidth="full">
-							<Text>{data.emoji}</Text>
-							<Text truncate>{data.name}</Text>
-						</HStack>
+						<VStack alignItems="flex-start" width="full" height="full" justifyContent="space-between" gap="0">
+							<Box
+								aspectRatio="1/1"
+								bg="bg.emphasized"
+								p="1"
+								borderRadius="full"
+								fontSize="lg"
+								textAlign="center"
+							>
+								{data.emoji}
+							</Box>
+							<Text fontSize="xs" width="full" textAlign="left" truncate>
+								{data.name}
+							</Text>
+						</VStack>
 					</Button>
-					<IconButton size="xl" height="full">
-						<MenuTrigger width="full" height="full" >
-							<Center>
-								<HiOutlineEllipsisVertical />
-							</Center>
-						</MenuTrigger>
-					</IconButton>
-				</ButtonGroup>
+				</Box >
 				<MenuContent>
 					<MenuItem
 						value="edit"

@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Text, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiMiniPlusCircle } from "react-icons/hi2"
 import { useSound } from '../atoms/sounds'
@@ -41,8 +41,13 @@ export const SoundAddButton = () => {
 
 	return (
 		<>
-			<Button height="3rem" onClick={buttonHandle}>
-				<HiMiniPlusCircle />サウンドを追加
+			<Button height="5rem" p="2" onClick={buttonHandle}>
+				<VStack alignItems="flex-start" width="full" height="full" justifyContent="space-between" gap="0">
+					<HiMiniPlusCircle style={{ width: "2rem", height: "2rem" }} />
+					<Text fontSize="xs" width="full" textAlign="left">
+						サウンドを追加
+					</Text>
+				</VStack>
 			</Button>
 			<SoundAddDialog
 				dialogState={{ dialogOpen, setDialogOpen }}

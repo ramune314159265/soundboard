@@ -6,7 +6,7 @@ import { SoundAddButton } from './SoundAddButton'
 export const SoundList = () => {
 	const [sounds, { setSounds, addSound }] = useSound()
 	return (
-		<SimpleGrid gap={4} p={4} wrap={"wrap"} gridTemplateColumns={"repeat(auto-fill, 12rem)"} gridTemplateRows={"repeat(auto-fill, 3rem)"} justifyContent={"center"}>
+		<SimpleGrid gap={4} p={4} wrap={"wrap"} gridTemplateColumns={"repeat(auto-fill, 8rem)"} gridTemplateRows={"repeat(auto-fill, 5rem)"} justifyContent={"center"}>
 			{
 				Object.values(sounds).map((sound, i) => {
 					return (
