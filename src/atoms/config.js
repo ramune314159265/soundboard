@@ -1,6 +1,8 @@
 import { atom, useAtom } from 'jotai'
 
-export const configAtom = atom({})
+export const configAtom = atom({
+	audioOutputs: ['']
+})
 
 export const useConfig = () => {
 	const [config, setConfig] = useAtom(configAtom)
@@ -10,7 +12,6 @@ export const useConfig = () => {
 			...config,
 			audioOutputs: outputs
 		}
-		console.log(newConfig)
 		setConfig(newConfig)
 	}
 

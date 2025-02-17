@@ -7,16 +7,21 @@ import {
 import { Box, Button, Text, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2'
+import { useConfig } from '../atoms/config'
 import { useSound } from '../atoms/sounds'
 import { SoundEditDialog } from './SoundEditDialog'
 
 export const Sound = ({ data }) => {
 	const [sounds, { setSounds, addSound, deleteSound, editSound }] = useSound()
+	const [config] = useConfig()
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const clickHandle = () => {
-		const audio = new Audio(data.url)
-		audio.volume = data.volume
-		audio.play()
+		config.audioOutputs.forEach(output => {
+			const audio = new Audio(data.url)
+			audio.volume = data.volume
+			audio.setSinkId(output)
+			audio.play()
+		})
 	}
 	const submitHandle = async newData => {
 		setDialogOpen(false)
