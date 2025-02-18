@@ -29,7 +29,7 @@ export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 				<FieldRoot>
 					<FieldLabel>絵文字＆名前</FieldLabel>
 					<Group width="full">
-						<PopoverRoot placement="right">
+						<PopoverRoot placement="right" positioning={{ placement: "right-start" }}>
 							<PopoverTrigger asChild>
 								<Button
 									variant="outline"
@@ -40,8 +40,8 @@ export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 									emojiStyle="native"
 									data={data}
 									locale="ja"
-									searchPosition="none"
 									value={emoji}
+									searchPosition="none"
 									onEmojiSelect={e => {
 										setEmoji(e.native)
 									}}
