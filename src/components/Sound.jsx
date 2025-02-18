@@ -11,7 +11,7 @@ import { useConfig } from '../atoms/config'
 import { useSound } from '../atoms/sounds'
 import { SoundEditDialog } from './SoundEditDialog'
 
-export const Sound = ({ data }) => {
+export const Sound = ({ data, enableMenu }) => {
 	const [sounds, { setSounds, addSound, deleteSound, editSound }] = useSound()
 	const [config] = useConfig()
 	const [dialogOpen, setDialogOpen] = useState(false)
@@ -59,11 +59,13 @@ export const Sound = ({ data }) => {
 							</Text>
 						</VStack>
 					</Button>
-					<Box position="absolute" top="2" right="2" zIndex="1">
-						<MenuTrigger>
-							<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
-						</MenuTrigger>
-					</Box>
+					{enableMenu !== false ?
+						<Box position="absolute" top="2" right="2" zIndex="1">
+							<MenuTrigger>
+								<HiOutlineEllipsisVertical style={{ width: "1.25rem", height: "1.25rem" }} />
+							</MenuTrigger>
+						</Box> : <></>
+					}
 				</Box >
 				<MenuContent>
 					<MenuItem

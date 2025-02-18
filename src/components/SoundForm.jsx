@@ -91,7 +91,7 @@ export const SoundForm = ({ onDataSubmit, onCancel, defaultValues, url }) => {
 				</FieldRoot>
 				<FieldRoot>
 					<FieldLabel>試聴</FieldLabel>
-					<Sound data={{ name, emoji, url, volume: volume[0] }}></Sound>
+					<Sound data={{ name, emoji, url, volume: volume[0] }} enableMenu={false}></Sound>
 				</FieldRoot>
 				<HStack width="full" justifyContent="space-between">
 					<Button variant="outline" onClick={() => onCancel()}>キャンセル</Button>
