@@ -10,7 +10,7 @@ function App() {
 				<GridItem>
 					<Header></Header>
 				</GridItem>
-				<GridItem overflowY={"auto"} p={4}>
+				<GridItem overflowY={"auto"} p={4} scrollbarGutter="stable">
 					<CategoryList></CategoryList>
 				</GridItem>
 			</Grid>
