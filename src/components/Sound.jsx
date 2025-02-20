@@ -12,7 +12,7 @@ import { useSound } from '../atoms/sounds'
 import { SoundEditDialog } from './SoundEditDialog'
 
 export const Sound = ({ data, enableMenu }) => {
-	const [sounds, { setSounds, addSound, deleteSound, editSound }] = useSound()
+	const [sounds, { deleteSound, editSound }] = useSound()
 	const [config] = useConfig()
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const clickHandle = () => {

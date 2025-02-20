@@ -1,16 +1,18 @@
 import { Button, Text, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiMiniPlusCircle } from "react-icons/hi2"
+import { useCategory } from '../atoms/categories'
 import { useSound } from '../atoms/sounds'
 import { getNameWithoutExtension } from '../utils/filePath'
 import { showOpenFilePicker } from '../utils/showOpenFilePicker'
 import { SoundAddDialog } from './SoundAddDialog'
 
-export const SoundAddButton = () => {
+export const SoundAddButton = ({ categoryUuid }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const [file, setFile] = useState(null)
 	const [url, setUrl] = useState('')
 	const [sounds, { setSounds, addSound }] = useSound()
+	const [categories, { addSoundToCategory }] = useCategory()
 	const buttonHandle = () => {
 		showOpenFilePicker({
 			excludeAcceptAllOption: true,
@@ -37,6 +39,7 @@ export const SoundAddButton = () => {
 		const blob = new Blob([file], { type: file.type })
 		const uuid = crypto.randomUUID()
 		await addSound({ blob, name: data.name, emoji: data.emoji, volume: data.volume[0], uuid, url })
+		await addSoundToCategory(categoryUuid, uuid)
 	}
 
 	return (

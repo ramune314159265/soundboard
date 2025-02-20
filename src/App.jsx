@@ -1,7 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react'
 import { ConfigDialog } from './components/ConfigDialog'
 import { Header } from './components/Header'
-import { SoundList } from './components/SoundList'
+import { CategoryList } from './components/categoryList'
 
 function App() {
 	return (
@@ -11,7 +11,7 @@ function App() {
 					<Header></Header>
 				</GridItem>
 				<GridItem overflowY={"auto"}>
-					<SoundList></SoundList>
+					<CategoryList></CategoryList>
 				</GridItem>
 			</Grid>
 			<ConfigDialog></ConfigDialog>

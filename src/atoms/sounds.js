@@ -1,14 +1,8 @@
-import Dexie from 'dexie'
 import { atom, useAtom } from 'jotai'
 import { useEffect } from 'react'
+import { db } from '../db'
 
 export const soundsAtom = atom({})
-
-const db = new Dexie('soundDatabase')
-
-db.version(2).stores({
-	sounds: '++id,name,uuid'
-})
 
 export const useSound = () => {
 	const [sounds, setSounds] = useAtom(soundsAtom)
@@ -39,8 +33,7 @@ export const useSound = () => {
 	}
 	const deleteSound = async (uuid) => {
 		try {
-			const data = await db.sounds.get({ uuid })
-			await db.sounds.delete(data.id)
+			await db.sounds.delete(uuid)
 		} catch (e) {
 			console.error(e)
 		}
@@ -50,8 +43,7 @@ export const useSound = () => {
 	}
 	const editSound = async (uuid, newData) => {
 		try {
-			const data = await db.sounds.get({ uuid })
-			await db.sounds.update(data.id, newData)
+			await db.sounds.update(uuid, newData)
 		} catch (e) {
 			console.error(e)
 		}
