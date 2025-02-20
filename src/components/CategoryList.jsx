@@ -9,7 +9,7 @@ export const CategoryList = () => {
 		<VStack gap={4} w="full">
 			{
 				Object.values(categories)
-					.sort((a, b) => a - b)
+					.sort((a, b) => a.index - b.index)
 					.map(category => {
 						return (
 							<SoundList categoryUuid={category.uuid} key={category.uuid} />
