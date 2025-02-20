@@ -4,7 +4,7 @@ import {
 	MenuRoot,
 	MenuTrigger
 } from "@/components/ui/menu"
-import { Box, Button, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Center, Text, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2'
 import { useConfig } from '../atoms/config'
@@ -50,9 +50,8 @@ export const Sound = ({ data, enableMenu }) => {
 								p="1"
 								borderRadius="full"
 								fontSize="lg"
-								textAlign="center"
 							>
-								{data.emoji}
+								<Center w="full" h="full">{data.emoji}</Center>
 							</Box>
 							<Text fontSize="xs" width="full" textAlign="left" truncate>
 								{data.name}
