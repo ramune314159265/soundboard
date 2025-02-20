@@ -14,7 +14,7 @@ export const CategoryAddButton = () => {
 	}
 	return (
 		<>
-			<Button onClick={() => setDialogOpen(true)}>
+			<Button onClick={() => setDialogOpen(true)} w="full">
 				<HiMiniPlusCircle /> カテゴリーを追加
 			</Button>
 			<CategoryAddDialog

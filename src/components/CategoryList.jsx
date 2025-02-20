@@ -1,3 +1,4 @@
+import { VStack } from '@chakra-ui/react'
 import { useCategory } from '../atoms/categories'
 import { CategoryAddButton } from './CategoryAddButton'
 import { SoundList } from './SoundList'
@@ -5,7 +6,7 @@ import { SoundList } from './SoundList'
 export const CategoryList = () => {
 	const [categories] = useCategory()
 	return (
-		<>
+		<VStack gap={4} w="full">
 			{
 				Object.values(categories)
 					.sort((a, b) => a - b)
@@ -16,6 +17,6 @@ export const CategoryList = () => {
 					})
 			}
 			<CategoryAddButton></CategoryAddButton>
-		</>
+		</VStack>
 	)
 }
