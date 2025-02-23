@@ -5,28 +5,28 @@ import {
 	MenuTrigger
 } from "@/components/ui/menu"
 import { Box, Button, Center, Text, VStack } from '@chakra-ui/react'
-import { useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2'
 import { useConfig } from '../atoms/config'
 import { useSound } from '../atoms/sounds'
 import { SoundEditDialog } from './SoundEditDialog'
 
-export const Sound = ({ data, enableMenu }) => {
+export const Sound = memo(({ data, enableMenu }) => {
 	const [sounds, { deleteSound, editSound }] = useSound()
 	const [config] = useConfig()
 	const [dialogOpen, setDialogOpen] = useState(false)
-	const clickHandle = () => {
+	const clickHandle = useCallback(() => {
 		config.audioOutputs.forEach(output => {
 			const audio = new Audio(data.url)
 			audio.volume = data.volume
 			audio.setSinkId(output)
 			audio.play()
 		})
-	}
-	const submitHandle = async newData => {
+	}, [config.audioOutputs, data.url, data.volume])
+	const submitHandle = useCallback(async newData => {
 		setDialogOpen(false)
 		await editSound(data.uuid, { name: newData.name, emoji: newData.emoji, volume: newData.volume[0] })
-	}
+	}, [data.uuid, editSound])
 	return (
 		<>
 			<MenuRoot>
@@ -90,4 +90,6 @@ export const Sound = ({ data, enableMenu }) => {
 			></SoundEditDialog>
 		</>
 	)
-}
+})
+
+Sound.displayName = 'Sound'

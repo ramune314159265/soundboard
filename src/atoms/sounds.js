@@ -15,9 +15,12 @@ export const useSound = () => {
 					const url = URL.createObjectURL(sound.blob)
 					data[sound.uuid] = { ...sound, url }
 				})
-				setSounds(data)
+				setSounds(prev => {
+					if(Object.keys(prev).length === Object.keys(data).length) return prev
+					return data
+				})
 			})
-	}, [setSounds])
+	}, [])
 
 	const addSound = async ({ blob, name, emoji, volume, uuid, url }) => {
 		try {
