@@ -1,7 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react'
+import { CategoryList } from './components/CategoryList'
 import { ConfigDialog } from './components/ConfigDialog'
 import { Header } from './components/Header'
-import { CategoryList } from './components/categoryList'
 
 function App() {
 	return (
