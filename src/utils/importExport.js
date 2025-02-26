@@ -1,5 +1,6 @@
-import { BlobReader, BlobWriter, TextReader, ZipWriter } from '@zip.js/zip.js'
+import { BlobReader, BlobWriter, TextReader, ZipReader, ZipWriter } from '@zip.js/zip.js'
 import { db } from '../db'
+import { showOpenFilePicker } from './showOpenFilePicker'
 
 export const exportSoundsData = async () => {
 	const sounds = await db.sounds.toArray()
@@ -29,4 +30,45 @@ export const downloadSoundsData = async () => {
 	a.download = 'soundboard.rsbd'
 	a.click()
 	URL.revokeObjectURL(url)
+}
+
+export const importSoundsData = async blob => {
+	const zipFileReader = new BlobReader(blob)
+	const zipReader = new ZipReader(zipFileReader)
+	const entries = await zipReader.getEntries()
+	const soundsArray = JSON.parse(await (await entries.find(e => e.filename === 'sounds.json').getData(new BlobWriter())).text())
+	const categoriesArray = JSON.parse(await (await entries.find(e => e.filename === 'categories.json').getData(new BlobWriter())).text())
+	await Promise.all(soundsArray
+		.map(sound => (async () => {
+			const blob = await entries.find(e => e.filename === sound.uuid).getData(new BlobWriter())
+			await db.sounds.add({ ...sound, blob })
+		})())
+	)
+	await Promise.all(categoriesArray
+		.map(category => (async () => {
+			await db.categories.add(category)
+		})())
+	)
+	location.reload()
+}
+
+export const getImportSoundsData = async () => {
+	try {
+		const files = await showOpenFilePicker({
+			multiple: false,
+			types: [
+				{
+					description: "サウンドボードエクスポートデータ",
+					accept: {
+						"application/soundboard": ['.rsbd'],
+					},
+				}
+			]
+		})
+		const file = await files[0].getFile()
+		const blob = new Blob([file], { type: file.type })
+		await importSoundsData(blob)
+	} catch (e) {
+		console.error(e)
+	}
 }
