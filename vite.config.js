@@ -15,7 +15,6 @@ export default defineConfig({
 				name: 'サウンドボード',
 				description: '自由に効果音を流せるアプリ',
 				theme_color: '#fff',
-				start_url: '/',
 				display: 'standalone',
 				lang: 'ja-jp',
 				icons: [
