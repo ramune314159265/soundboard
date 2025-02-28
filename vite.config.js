@@ -30,7 +30,6 @@ export default defineConfig({
 					}
 				]
 			},
-			devOptions: { enabled: true }
 		}),
 		viteOgp({
 			basic: {
