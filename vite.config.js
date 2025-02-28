@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { defineConfig } from 'vite'
+import viteOgp from 'vite-plugin-open-graph'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
@@ -30,6 +31,16 @@ export default defineConfig({
 				]
 			},
 			devOptions: { enabled: true }
+		}),
+		viteOgp({
+			basic: {
+				title: 'サウンドボード',
+				type: 'website',
+				image: 'https://ramune314159265.github.io/soundboard/icon_128.png',
+				description: '自由に効果音を流せるアプリ',
+				url: 'https://ramune314159265.github.io/soundboard/',
+				locale: 'ja_JP'
+			}
 		})
 	],
 	resolve: {
