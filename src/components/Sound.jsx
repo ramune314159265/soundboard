@@ -29,7 +29,7 @@ export const Sound = memo(({ data, enableMenu }) => {
 	}, [data.uuid, editSound])
 	return (
 		<>
-			<MenuRoot>
+			<MenuRoot lazyMount={true} unmountOnExit={true}>
 				<Box
 					width="8rem"
 					height="5rem"
