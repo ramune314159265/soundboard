@@ -16,5 +16,9 @@ export const useConfig = () => {
 		setConfig(newConfig)
 	}
 
-	return [config, { setConfig, setAudioOutputs }]
+	const resetAllConfigs = () => {
+		localStorage.removeItem('ramune314159265.soundboard.config')
+	}
+
+	return [config, { setConfig, setAudioOutputs, resetAllConfigs }]
 }

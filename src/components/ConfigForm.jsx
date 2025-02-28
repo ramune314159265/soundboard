@@ -6,12 +6,13 @@ import {
 	SelectTrigger,
 	SelectValueText
 } from "@/components/ui/select"
-import { createListCollection, VStack } from '@chakra-ui/react'
+import { Button, createListCollection, FieldHelperText, FieldLabel, FieldRoot, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useConfig } from '../atoms/config'
+import { db } from './../db'
 
 export const ConfigForm = ({ contentRef }) => {
-	const [config, { setConfig, setAudioOutputs }] = useConfig()
+	const [config, { setAudioOutputs, resetAllConfigs }] = useConfig()
 
 	const [audioOutputList, setAudioOutputList] = useState(createListCollection({ items: [{ label: 'デフォルト', value: '' }] }))
 	useEffect(() => {
@@ -31,7 +32,7 @@ export const ConfigForm = ({ contentRef }) => {
 		})()
 	}, [setAudioOutputList])
 	return (
-		<VStack>
+		<VStack gap={4}>
 			<SelectRoot multiple collection={audioOutputList} value={config.audioOutputs} onValueChange={e => setAudioOutputs(e.value)}>
 				<SelectLabel>音声出力先(複数可)</SelectLabel>
 				<SelectTrigger>
@@ -43,6 +44,56 @@ export const ConfigForm = ({ contentRef }) => {
 					))}
 				</SelectContent>
 			</SelectRoot>
+			<FieldRoot>
+				<FieldLabel>データのリセット・削除</FieldLabel>
+				<VStack alignItems="flex-start">
+					<Button
+						colorPalette="yellow"
+						variant="outline"
+						size="sm"
+						onClick={async () => {
+							const cacheId = (await caches.keys()).find(e => e.includes('workbox-precache'))
+							await caches.delete(cacheId)
+							const registration = await navigator.serviceWorker.getRegistration()
+							registration.unregister()
+							location.reload()
+						}}
+					>
+						アプリのキャッシュの削除
+					</Button>
+					<Button
+						colorPalette="red"
+						variant="outline"
+						size="sm"
+						onClick={() => {
+							if (!confirm('本当に設定をリセットしますか？')) {
+								return
+							}
+							resetAllConfigs()
+							location.reload()
+						}}
+					>
+						設定のリセット...
+					</Button>
+					<Button
+						colorPalette="red"
+						variant="outline"
+						size="sm"
+						onClick={async () => {
+							if (!confirm('本当にサウンド、カテゴリーを全て削除しますか？')) {
+								return
+							}
+							db.delete()
+							location.reload()
+						}}
+					>
+						サウンド・カテゴリーの削除...
+					</Button>
+				</VStack>
+				<FieldHelperText>
+					この操作は元に戻すことが出来ません。削除した後は再読み込みされます。
+				</FieldHelperText>
+			</FieldRoot>
 		</VStack>
 	)
 }
