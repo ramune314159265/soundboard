@@ -4,6 +4,7 @@ import {
 	MenuRoot,
 	MenuTrigger,
 } from '@/components/ui/menu'
+import { Tooltip } from "@/components/ui/tooltip"
 import { Box, Flex, Heading, HStack, IconButton } from '@chakra-ui/react'
 import { HiMiniCog6Tooth, HiOutlineArrowUpOnSquareStack } from 'react-icons/hi2'
 import { useConfigDialog } from '../atoms/configDialog'
@@ -20,9 +21,11 @@ export const Header = () => {
 				<HStack>
 					<MenuRoot>
 						<MenuTrigger asChild>
-							<IconButton variant="ghost" borderRadius="full">
-								<HiOutlineArrowUpOnSquareStack></HiOutlineArrowUpOnSquareStack>
-							</IconButton>
+							<Tooltip showArrow content="サウンドボードのインポート、エクスポート" openDelay={0} closeDelay={100}>
+								<IconButton variant="ghost" borderRadius="full" aria-label="サウンドボードのインポート、エクスポート">
+									<HiOutlineArrowUpOnSquareStack></HiOutlineArrowUpOnSquareStack>
+								</IconButton>
+							</Tooltip>
 						</MenuTrigger>
 						<MenuContent>
 							<MenuItem value="export" onClick={() => downloadSoundsData()}>
@@ -33,9 +36,11 @@ export const Header = () => {
 							</MenuItem>
 						</MenuContent>
 					</MenuRoot>
-					<IconButton variant="ghost" borderRadius="full" onClick={() => setDialogOpen(true)}>
-						<HiMiniCog6Tooth></HiMiniCog6Tooth>
-					</IconButton>
+					<Tooltip showArrow content="設定" openDelay={0} closeDelay={100}>
+						<IconButton variant="ghost" borderRadius="full" aria-label="設定" onClick={() => setDialogOpen(true)}>
+							<HiMiniCog6Tooth></HiMiniCog6Tooth>
+						</IconButton>
+					</Tooltip>
 				</HStack>
 			</Flex>
 		</Box >
