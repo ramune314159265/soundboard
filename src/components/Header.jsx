@@ -6,12 +6,14 @@ import {
 } from '@/components/ui/menu'
 import { Tooltip } from "@/components/ui/tooltip"
 import { Box, Flex, Heading, HStack, IconButton } from '@chakra-ui/react'
+import { useId } from 'react'
 import { HiMiniCog6Tooth, HiOutlineArrowUpOnSquareStack } from 'react-icons/hi2'
 import { useConfigDialog } from '../atoms/configDialog'
 import { downloadSoundsData, getImportSoundsData } from '../utils/importExport'
 
 export const Header = () => {
 	const [dialogOpen, setDialogOpen] = useConfigDialog()
+	const menuTriggerId = useId()
 	return (
 		<Box bg="bg.panel" height="full" px="1rem" userSelect="none">
 			<Flex height="full" alignItems="center" justifyContent="space-between">
@@ -19,14 +21,14 @@ export const Header = () => {
 					サウンドボード
 				</Heading>
 				<HStack>
-					<MenuRoot>
-						<MenuTrigger asChild>
-							<Tooltip showArrow content="サウンドボードのインポート、エクスポート" openDelay={0} closeDelay={100}>
+					<MenuRoot ids={{ trigger: menuTriggerId }}>
+						<Tooltip showArrow content="サウンドボードのインポート、エクスポート" ids={{ trigger: menuTriggerId }} openDelay={0} closeDelay={100}>
+							<MenuTrigger asChild>
 								<IconButton variant="ghost" borderRadius="full" aria-label="サウンドボードのインポート、エクスポート">
 									<HiOutlineArrowUpOnSquareStack></HiOutlineArrowUpOnSquareStack>
 								</IconButton>
-							</Tooltip>
-						</MenuTrigger>
+							</MenuTrigger>
+						</Tooltip>
 						<MenuContent>
 							<MenuItem value="export" onClick={() => downloadSoundsData()}>
 								エクスポート
