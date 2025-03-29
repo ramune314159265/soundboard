@@ -4,7 +4,7 @@ import { HiMiniPlusCircle } from "react-icons/hi2"
 import { useCategory } from '../atoms/categories'
 import { useSound } from '../atoms/sounds'
 import { getNameWithoutExtension } from '../utils/filePath'
-import { showOpenFilePicker } from '../utils/showOpenFilePicker'
+import { showFilePicker } from '../utils/filePicker'
 import { SoundAddDialog } from './SoundAddDialog'
 
 export const SoundAddButton = ({ categoryUuid }) => {
@@ -14,7 +14,7 @@ export const SoundAddButton = ({ categoryUuid }) => {
 	const [sounds, { setSounds, addSound }] = useSound()
 	const [categories, { addSoundToCategory }] = useCategory()
 	const buttonHandle = () => {
-		showOpenFilePicker({
+		showFilePicker({
 			excludeAcceptAllOption: true,
 			multiple: false,
 			types: [
@@ -27,7 +27,7 @@ export const SoundAddButton = ({ categoryUuid }) => {
 			]
 		})
 			.then(async e => {
-				const file = await e[0].getFile()
+				const file = e[0]
 				setFile(file)
 				setUrl(URL.createObjectURL(new Blob([file], { type: file.type })))
 				setDialogOpen(true)

@@ -19,7 +19,7 @@ export const Sound = memo(({ data, enableMenu }) => {
 		config.audioOutputs.forEach(output => {
 			const audio = new Audio(data.url)
 			audio.volume = data.volume
-			audio.setSinkId(output)
+			audio.setSinkId?.(output)
 			audio.play()
 		})
 	}, [config.audioOutputs, data.url, data.volume])

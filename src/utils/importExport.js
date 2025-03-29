@@ -1,6 +1,6 @@
 import { BlobReader, BlobWriter, TextReader, ZipReader, ZipWriter } from '@zip.js/zip.js'
 import { db } from '../db'
-import { showOpenFilePicker } from './showOpenFilePicker'
+import { showFilePicker } from './filePicker'
 
 export const exportSoundsData = async () => {
 	const sounds = await db.sounds.toArray()
@@ -54,7 +54,7 @@ export const importSoundsData = async blob => {
 
 export const getImportSoundsData = async () => {
 	try {
-		const files = await showOpenFilePicker({
+		const files = await showFilePicker({
 			multiple: false,
 			types: [
 				{
@@ -65,7 +65,7 @@ export const getImportSoundsData = async () => {
 				}
 			]
 		})
-		const file = await files[0].getFile()
+		const file = files[0]
 		const blob = new Blob([file], { type: file.type })
 		await importSoundsData(blob)
 	} catch (e) {
